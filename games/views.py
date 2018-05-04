@@ -25,7 +25,7 @@ def game_list(request):
     elif request.method == 'POST':
         game_data = JSONParser().parse(request)
         game_serializer = GameSerializer(data=game_data)
-        if game_data.is_valid():
+        if game_serializer.is_valid():
             game_serializer.save()
             return JSONResponse(game_serializer.data, status=status.HTTP_201_CREATED)
         return JSONResponse(game_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
