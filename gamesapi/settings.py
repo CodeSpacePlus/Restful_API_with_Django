@@ -77,6 +77,16 @@ WSGI_APPLICATION = 'gamesapi.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
+    # Uncomment the following lines to enable postgresql
+    # Don't forget to install psycopg2
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'games',
+    #     'USER': **postgresql username**,
+    #     'PASSWORD': **postgresql password**,
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
