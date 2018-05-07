@@ -62,6 +62,19 @@ class PlayerScoreDetail(generics.RetrieveUpdateDestroyAPIView):
     name = 'playerscore-detail'
 
 
+# The ApiRoot class defines the get method that returns a Response object
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'players': reverse(PlayerList.name, request=request),
+            'game-categories': reverse(GameCategoryList.name, request=request),
+            'games': reverse(GameList.name, request=request),
+            'scores': reverse(PlayerScoreList.name, request=request)
+        })
+
+
 # @api_view(['GET', 'POST'])
 # def game_list(request):
 #     if request.method == 'GET':
