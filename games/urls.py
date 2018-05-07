@@ -9,7 +9,7 @@ urlpatterns = [
     path('game-categories/<int:pk>/', views.GameCategoryDetail.as_view(),
          name=views.GameCategoryDetail.name),
     path('games/', views.GameList.as_view(),
-         name=views.GameDetail.name),
+         name=views.GameList.name),
     path('games/<int:pk>/', views.GameDetail.as_view(),
          name=views.GameDetail.name),
     path('players/', views.PlayerList.as_view(),

@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from rest_framework import status, generics
+from rest_framework import generics
 from games.models import Game, GameCategory, PlayerScore, Player
 from games.serializer import (GameSerializer, GameCategorySerializer,
                               PlayerSerializer, PlayerScoreSerializer)
