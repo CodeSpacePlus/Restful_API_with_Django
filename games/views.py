@@ -1,10 +1,13 @@
-from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework import permissions
 from rest_framework import generics
 from games.models import Game, GameCategory, PlayerScore, Player
+from games.permissions import IsOwnerOrReadOnly
 from games.serializer import (GameSerializer, GameCategorySerializer,
-                              PlayerSerializer, PlayerScoreSerializer)
+                              PlayerSerializer, PlayerScoreSerializer,
+                              UserSerializer)
 
 
 # class JSONResponse(HttpResponse):
@@ -12,6 +15,18 @@ from games.serializer import (GameSerializer, GameCategorySerializer,
 #         content = JSONRenderer().render(data)
 #         kwargs['content_type'] = 'application/json'
 #         super(JSONResponse, self).__init__(content, **kwargs)
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-list'
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    name = 'user-detail'
 
 
 class GameCategoryList(generics.ListCreateAPIView):
@@ -30,12 +45,25 @@ class GameList(generics.ListCreateAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     name = 'game-list'
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly,
+    )
+
+    def perform_create(self, serializer):
+        # Pass an additional owner field to the create method
+        # To set the owner to the user received in the request
+        serializer.save(owner=self.request.user)
 
 
 class GameDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     name = 'game-detail'
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly
+    )
 
 
 class PlayerList(generics.ListCreateAPIView):
@@ -71,7 +99,8 @@ class ApiRoot(generics.GenericAPIView):
             'players': reverse(PlayerList.name, request=request),
             'game-categories': reverse(GameCategoryList.name, request=request),
             'games': reverse(GameList.name, request=request),
-            'scores': reverse(PlayerScoreList.name, request=request)
+            'scores': reverse(PlayerScoreList.name, request=request),
+            'users': reverse(UserList.name, request=request),
         })
 
 

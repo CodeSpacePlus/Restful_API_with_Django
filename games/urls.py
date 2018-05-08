@@ -20,6 +20,10 @@ urlpatterns = [
          name=views.PlayerScoreList.name),
     path('player-scores/<int:pk>/', views.PlayerScoreDetail.as_view(),
          name=views.PlayerScoreDetail.name),
+    path('users/', views.UserList.as_view(),
+         name=views.UserList.name),
+    path('users/<int:pk>/', views.UserDetail.as_view(),
+         name=views.UserDetail.name),
     path('', views.ApiRoot.as_view(),
          name=views.ApiRoot.name),
 
