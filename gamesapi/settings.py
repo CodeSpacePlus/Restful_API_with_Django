@@ -55,7 +55,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         # 'rest_framework.pagination.LimitOffsetPagination',
         'games.pagination.LimitOffsetPaginationWithMaxLimit',
-        'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 ROOT_URLCONF = 'gamesapi.urls'
