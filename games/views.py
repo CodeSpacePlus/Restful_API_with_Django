@@ -10,9 +10,8 @@ from django.contrib.auth.models import User
 from games.models import Game, GameCategory, PlayerScore, Player
 from games.permissions import IsOwnerOrReadOnly
 from games.serializer import (GameSerializer, GameCategorySerializer,
-                              PlayerSerializer, PlayerScoreSerializer,
+                              PlayerScoreSerializer, PlayerSerializer,
                               UserSerializer)
-
 
 # class JSONResponse(HttpResponse):
 #     def __init__(self, data, **kwargs):
