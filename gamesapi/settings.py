@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'django_filters',
     'crispy_forms',
     'rest_framework',
@@ -80,6 +81,18 @@ REST_FRAMEWORK = {
         'game-categories': '30/hour',
     }
 }
+
+
+# Using nose to run all the tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Use nose to measure coverage on the games app
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-erase',
+    '--cover-inclusive',
+    '--cover-package=games',
+]
 
 ROOT_URLCONF = 'gamesapi.urls'
 
